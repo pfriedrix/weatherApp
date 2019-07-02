@@ -1,6 +1,7 @@
 import requests
 import pytemperature
 import time
+import datetime
 
 
 url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=271d1234d3f497eed5b1d80a07b3fcd1'
@@ -20,6 +21,7 @@ def convert_time(s):
 def get_info(request):
 	city = request['name']
 	temp = pytemperature.f2c(request['main']['temp'])
+	data = request
 	desc = request['weather'][0]['description']
 	humdity = request['main']['humidity']
 	clouds = request['clouds']['all']
@@ -28,6 +30,7 @@ def get_info(request):
 
 	weather = {
 		'Город:': city,
+		'Дата:': datetime.datetime.today().strftime('%m.%d.%Y'),
 		'Температура:': str(temp) + '°C',
 		'Описание:': desc,
 		'Влажность:': str(humdity) + '%',
