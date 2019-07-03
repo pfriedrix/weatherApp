@@ -17,7 +17,7 @@ def convert_time(s):
 
 def get_info(request):
     city = request['name']
-    temp = int(pytemperature.f2c(request['main']['temp']))
+    temp = int(request['main']['temp'])
     desc = request['weather'][0]['description']
     humdity = request['main']['humidity']
     sunrise = convert_time(request['sys']['sunrise'])
@@ -36,7 +36,7 @@ def get_info(request):
 
 
 if __name__ == "__main__":
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=271d1234d3f497eed5b1d80a07b3fcd1'
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=271d1234d3f497eed5b1d80a07b3fcd1'
     city = input('Введите город: ')
     weather = get_info(parse(url, city))
     for key, value in weather.items():

@@ -12,8 +12,8 @@ def get_info(request):
         convert = time.localtime(day['dt'])
         date = '0' + str(convert.tm_mday) + '.' + '0' + str(convert.tm_mon)
         desc = day['weather'][0]['description']
-        temp_day = int(pytemperature.k2c(day['temp']['day']))
-        temp_night = int(pytemperature.k2c(day['temp']['night']))
+        temp_day = int(day['temp']['day'])
+        temp_night = int(day['temp']['night'])
         humidity = str(day['humidity']) + '%'
 
         data.append({
@@ -27,7 +27,7 @@ def get_info(request):
 
 
 if __name__ == "__main__":
-    url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q={}&cnt={}&appid=271d1234d3f497eed5b1d80a07b3fcd1'
+    url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q={}&cnt={}&units=metric&appid=271d1234d3f497eed5b1d80a07b3fcd1'
     city = input('Введите город: ')
     days = input('Введите количество дней: ')
     request = current.parse(url, city, days)
