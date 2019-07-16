@@ -15,6 +15,9 @@
 # Icon must end with two \r
 Icon
 
+# Database SQLITE
+weather.db
+
 # Thumbnails
 ._*
 
