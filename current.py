@@ -5,8 +5,7 @@ import urllib
 import peewee
 import pytemperature
 import requests
-from setuptools import Command
-
+from translator import to_translate
 from models import *
 
 
@@ -23,7 +22,7 @@ def convert_time(s):
 def get_info(request):
     city = request['name']
     temp = int(request['main']['temp'])
-    desc = request['weather'][0]['description']
+    desc = to_translate(request['weather'][0]['description'], 'ru')
     humdity = request['main']['humidity']
     sunrise = convert_time(request['sys']['sunrise'])
     sunset = convert_time(request['sys']['sunset'])
