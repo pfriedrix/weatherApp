@@ -10,7 +10,7 @@ def get_info(request):
 
     for day in request['list']:
         convert = time.localtime(day['dt'])
-        date = '0' + str(convert.tm_mday) + '.' + '0' + str(convert.tm_mon)
+        date = str(convert.tm_mday) + '.' + str(convert.tm_mon)
         desc = day['weather'][0]['description']
         temp_day = int(day['temp']['day'])
         temp_night = int(day['temp']['night'])

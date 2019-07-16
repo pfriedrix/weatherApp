@@ -2,7 +2,8 @@ import requests
 import pytemperature
 import time
 import datetime
-
+import peewee
+from models import *
 
 
 def parse(url, *args):
@@ -35,9 +36,27 @@ def get_info(request):
     return weather
 
 
+def send_to_db(data):
+	exist = False
+	try:
+		Weather.select().where(Weather.city == data['Город:'] and Weather.date == data['Дата:']).get()
+	except DoesNotExist:
+		exist = True
+	if exist:
+		row = Weather(
+			city=data['Город:'],
+			date=data['Дата:'],
+			temp=data['Температура:'],
+			desc=data['Описание:'],
+			humdity=data['Влажность:'],
+			sunrise=data['Восход:'],
+			sunset=data['Закат:'],
+		)
+		row.save()
+
+
 if __name__ == "__main__":
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=271d1234d3f497eed5b1d80a07b3fcd1'
     city = input('Введите город: ')
     weather = get_info(parse(url, city))
-    for key, value in weather.items():
-    	print(key, value)
+    send_to_db(weather)
